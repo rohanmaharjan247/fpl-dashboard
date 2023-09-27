@@ -1,0 +1,11 @@
+.dashboard_nav {
+  @apply my-8 text-sm text-gray-400;
+}
+
+.dashboard_nav li {
+  @apply py-2 px-8;
+}
+
+.dasboard_nav__active {
+  @apply border-l-4 border-primary bg-gray-100 text-primary font-bold;
+}

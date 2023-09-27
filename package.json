@@ -1,0 +1,35 @@
+{
+  "name": "fpl-omg",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "nodemon -q ./fpl-info-server/dist/server.js",
+    "watch:client": "npm run dev --prefix fpl-info",
+    "watch:server": "npx nodemon",
+    "dev": "concurrently \"npm run watch:server\" \"npm run watch:client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "fpl-api": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/express": "^4.17.18",
+    "@types/node": "^20.6.4",
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

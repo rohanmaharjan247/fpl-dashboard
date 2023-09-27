@@ -1,0 +1,6 @@
+{
+    "watch": ["fpl-info-server"],
+    "ext": ".ts,.js",
+    "ignore": [],
+    "exec": "npx ts-node --esm --files ./fpl-info-server/server.ts"
+}
