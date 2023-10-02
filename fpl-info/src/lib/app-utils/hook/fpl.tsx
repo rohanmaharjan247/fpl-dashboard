@@ -25,6 +25,7 @@ export interface Fixtures extends Fixture {
 export interface EntryPickElement extends EntryEventPick {
   element_detail?: Element
   position_detail?: ElementTypes
+  in_team?: "regular" | "sub"
 }
 
 const useBootstrap = () => {
@@ -145,6 +146,11 @@ const useEntryClassicLeagues = () => {
   return entry?.leagues.classic
 }
 
+const useEntryH2HLeague = () => {
+  const { entry } = useFPLContext()
+  return entry?.leagues.h2h
+}
+
 const useEntryEvent = (entryId?: number, eventId?: number | null) => {
   const {
     data: entryEvent,
@@ -168,6 +174,7 @@ const useEntryEvent = (entryId?: number, eventId?: number | null) => {
         ...pick,
         element_detail: picked_element,
         position_detail: picked_element_position,
+        in_team: pick.multiplier === 0 ? "sub" : "regular",
       }
     })
 
@@ -200,6 +207,7 @@ export {
   useCurrentFixtures,
   useEntry,
   useEntryClassicLeagues,
+  useEntryH2HLeague,
   useEntryEvent,
   useEntryHistory,
   useElementsType,

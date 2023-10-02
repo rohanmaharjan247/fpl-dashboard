@@ -22,7 +22,8 @@ const Dashboard = () => {
     if (entryPickElement) {
       const mvp = entryPickElement.reduce((acc, curr) => {
         return acc &&
-          acc.element_detail!.total_points > curr!.element_detail!.total_points
+          (acc.element_detail?.total_points ?? 0) >
+            (curr?.element_detail?.total_points ?? 0)
           ? acc
           : curr
       })

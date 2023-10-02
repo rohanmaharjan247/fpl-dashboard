@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"
+import { NavLink, Outlet } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faCog,
@@ -7,22 +7,25 @@ import {
   faRightLeft,
   faList,
   faFutbolBall,
+  faPowerOff,
 } from "@fortawesome/free-solid-svg-icons"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import styles from "@/styles/DashboardLayout.module.css"
 import { useFPLContext } from "@/lib/app-utils/context/fpl-context"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const DashboardNav = () => {
   const { entry } = useFPLContext()
+  const { user, logout } = useAuth0()
   return (
-    <div className='flex'>
-      <div className='basis-1/6 bg-white'>
+    <div className='relative'>
+      <div className='fixed inset-y-0 left-0 bg-white'>
         <div className='flex justify-end p-4'>
           <FontAwesomeIcon icon={faCog} />
         </div>
-        <div className='flex flex-col gap-4 justify-center items-center my-4 p-4'>
+        <div className='flex flex-col gap-4 justify-center items-center my-4 p-4 mx-16'>
           <Avatar className='w-[96px] h-[96px]'>
-            <AvatarImage />
+            <AvatarImage src={user?.picture} />
             <AvatarFallback className='font-bold text-2xl'>
               {entry?.player_first_name.charAt(0).toUpperCase()}
               {entry?.player_last_name.charAt(0).toUpperCase()}
@@ -42,7 +45,10 @@ const DashboardNav = () => {
             />
           </section>
         </div>
-        <section id='points' className='flex justify-evenly gap-4 text-center'>
+        <section
+          id='points'
+          className='flex justify-evenly gap-4 text-center mx-16'
+        >
           <div>
             <div className='font-bold text-lg'>
               {entry?.summary_overall_points}
@@ -58,40 +64,71 @@ const DashboardNav = () => {
         </section>
         <nav id='nav'>
           <ul className={styles.dashboard_nav}>
-            <Link to='/'>
-              <li className={styles.dasboard_nav__active}>
+            <NavLink
+              to='/dashboard'
+              className={({ isActive }) =>
+                isActive ? styles.dasboard_nav__active : ""
+              }
+            >
+              <li>
                 <FontAwesomeIcon icon={faTableColumns} className='mr-4' />
                 Overview
               </li>
-            </Link>
-            <Link to='/'>
+            </NavLink>
+            <NavLink
+              to='/my-team'
+              className={({ isActive }) =>
+                isActive ? styles.dasboard_nav__active : ""
+              }
+            >
               <li>
                 <FontAwesomeIcon icon={faShirt} className='mr-4' />
                 My Team
               </li>
-            </Link>
-            <Link to='/'>
+            </NavLink>
+            <NavLink
+              to='/'
+              className={({ isActive }) =>
+                isActive ? styles.dasboard_nav__active : ""
+              }
+            >
               <li>
                 <FontAwesomeIcon icon={faRightLeft} className='mr-4' />
                 Transfers
               </li>
-            </Link>
-            <Link to='/'>
+            </NavLink>
+            <NavLink
+              to='/leagues'
+              className={({ isActive }) =>
+                isActive ? styles.dasboard_nav__active : ""
+              }
+            >
               <li>
                 <FontAwesomeIcon icon={faList} className='mr-4' />
                 League
               </li>
-            </Link>
-            <Link to='/'>
+            </NavLink>
+            <NavLink
+              to='/'
+              className={({ isActive }) =>
+                isActive ? styles.dasboard_nav__active : ""
+              }
+            >
               <li>
                 <FontAwesomeIcon icon={faFutbolBall} className='mr-4' />
                 Fixtures
               </li>
-            </Link>
+            </NavLink>
+            <button onClick={() => logout()}>
+              <li>
+                <FontAwesomeIcon icon={faPowerOff} className='mr-4' />
+                Logout
+              </li>
+            </button>
           </ul>
         </nav>
       </div>
-      <div className='basis-5/6'>
+      <div className='absolute left-[20rem] inset-y-0 right-0'>
         <Outlet />
       </div>
     </div>

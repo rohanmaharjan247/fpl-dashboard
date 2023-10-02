@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Entry } from "fpl-api"
 import UserLeagueCard from "./UserLeagueCard"
 import { useEntryClassicLeagues } from "@/lib/app-utils/hook"
+import { NavLink } from "react-router-dom"
 
 type UserLeaguesProps = {
   entry: Entry
@@ -26,11 +26,14 @@ const UserLeagues = ({ entry }: UserLeaguesProps) => {
               <UserLeagueCard key={league.id} league={league} />
             ))}
         </div>
-        <div className='text-right'>
-          <Button variant={"link"}>
+        <div className='text-right  mt-2'>
+          <NavLink
+            to={"/leagues"}
+            className='text-sm text-primary hover:underline'
+          >
             See More
             <FontAwesomeIcon icon={faArrowRightLong} className='ml-1' />
-          </Button>
+          </NavLink>
         </div>
       </>
     </>

@@ -1,4 +1,4 @@
-import { useEntryHistory } from "@/lib/app-utils/hook"
+import { useEntryHistory, useFinishedGameweek } from "@/lib/app-utils/hook"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,6 +27,7 @@ type GameweekPointsChartProps = {
 
 const GameweekPointsChart = ({ entryId }: GameweekPointsChartProps) => {
   const { entryHistory } = useEntryHistory(entryId)
+  const finishedGameweek = useFinishedGameweek()
 
   const options = {
     responsive: true,
@@ -54,11 +55,12 @@ const GameweekPointsChart = ({ entryId }: GameweekPointsChartProps) => {
           display: true,
           text: "Points",
         },
+        beginAtZero: true,
       },
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
         position: "top" as const,
       },
       // title: {
@@ -75,13 +77,20 @@ const GameweekPointsChart = ({ entryId }: GameweekPointsChartProps) => {
       labels,
       datasets: [
         {
+          label: "Gameweek Pts.",
           data: entryHistory?.current.map((x) => x.points),
           backgroundColor: "rgb(236, 72, 153)",
           borderColor: "rgb(236, 72, 153)",
         },
+        {
+          label: "Avg. Pts",
+          data: finishedGameweek?.map((x) => x.average_entry_score),
+          backgroundColor: "hsl(210, 40%, 43%)",
+          borderColor: "hsl(210, 40%, 43%)",
+        },
       ],
     }
-  }, [entryHistory, labels])
+  }, [entryHistory, finishedGameweek, labels])
   return (
     <div className='py-4 w-full h-full'>
       <Line data={data} options={options} />

@@ -6,6 +6,6 @@
   @apply py-2 px-8;
 }
 
-.dasboard_nav__active {
+.dasboard_nav__active li {
   @apply border-l-4 border-primary bg-gray-100 text-primary font-bold;
 }

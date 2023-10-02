@@ -8,7 +8,7 @@ type CurrentFixtureCardProps = {
 
 const CurrentFixtureCard = ({ fixture }: CurrentFixtureCardProps) => {
   return (
-    <div className='bg-white p-4 rounded-md my-2'>
+    <div className='card my-2'>
       <div className='flex justify-center items-center gap-4'>
         <div className='basis-1/3 flex gap-2 justify-end items-center'>
           <div className='text-sm text-right'>

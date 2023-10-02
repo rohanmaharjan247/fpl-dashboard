@@ -3,11 +3,17 @@ import { EntryPickElement } from "@/lib/app-utils/hook"
 
 type MVPCardProps = {
   entryGameweekMVP?: EntryPickElement
+  is_gameweek?: boolean
+  is_lowest?: boolean
 }
 
-const MVPCard = ({ entryGameweekMVP }: MVPCardProps) => {
+const MVPCard = ({
+  entryGameweekMVP,
+  is_gameweek = false,
+  is_lowest,
+}: MVPCardProps) => {
   return (
-    <div className='bg-white p-4 rounded-md'>
+    <div className='card'>
       <div className='flex gap-4'>
         <div className='basis-[94px]'>
           <img
@@ -20,7 +26,7 @@ const MVPCard = ({ entryGameweekMVP }: MVPCardProps) => {
         </div>
         <div className='basis-full flex flex-col'>
           <span className='bg-primary text-primary-foreground rounded-md p-1 text-xs self-end'>
-            Your MVP
+            {is_gameweek ? "Gameweek" : "Your"} {is_lowest ? "LVP" : "MVP"}
           </span>
           <div className='italic'>
             <div className='text-gray-400'>
@@ -36,7 +42,7 @@ const MVPCard = ({ entryGameweekMVP }: MVPCardProps) => {
         <div>
           <div className='text-gray-400'>Position</div>
           <div className='text-lg font-bold'>
-            {entryGameweekMVP?.position_detail?.plural_name_short}
+            {entryGameweekMVP?.position_detail?.singular_name}
           </div>
         </div>
         <div>
@@ -84,7 +90,8 @@ const MVPCard = ({ entryGameweekMVP }: MVPCardProps) => {
           <div className='text-gray-400'>GW Point</div>
           <div className='text-lg font-bold'>
             {entryGameweekMVP &&
-              entryGameweekMVP.element_detail!.event_points *
+              entryGameweekMVP.element_detail &&
+              entryGameweekMVP.element_detail.event_points *
                 entryGameweekMVP.multiplier}
           </div>
         </div>

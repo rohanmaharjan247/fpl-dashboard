@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.image {
+  background-image: url("./assets/Football_field.svg");
+  background-size: cover;
+}
+
+.card {
+  @apply bg-white rounded-md p-4;
+}
+
 @layer base {
   :root {
     --background: 0 0% 90%;
@@ -72,5 +81,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

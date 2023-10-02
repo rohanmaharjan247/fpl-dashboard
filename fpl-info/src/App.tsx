@@ -1,36 +1,44 @@
-import { useState } from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
+// import reactLogo from "./assets/react.svg"
+// import viteLogo from "/vite.svg"
 import "./App.css"
 import { usePageTitle } from "@/lib/app-utils/hook"
+import { Button } from "./components/ui/button"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 function App() {
   usePageTitle("Home")
-  const [count, setCount] = useState(0)
+  const auth = useAuth0()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!auth.isLoading) {
+      if (auth.isAuthenticated) {
+        navigate("/dashboard")
+      }
+    }
+  }, [auth.isAuthenticated, auth.isLoading, navigate])
+
+  const getStartedHandler = () => {
+    auth.loginWithRedirect()
+  }
 
   return (
-    <>
-      <div>
-        <a href='https://vitejs.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='basis-2/3 grow flex justify-center items-center'>
+      <section className='py-16 mx-12'>
+        <div className='text-4xl font-bold italics text-primary pt-8 pb-4 w-1/2 text-balance'>
+          Unleash Your Fantasy: Join the FPL Frenzy Today!
+        </div>
+        <div className='pt-4 pb-8 w-[75%]'>
+          Unlock the Power of Numbers in Fantasy Premier League! Dive deep into
+          the game with our comprehensive statistics. Elevate your strategy,
+          make informed decisions, and dominate the competition. Turn data into
+          your secret weapon and take your FPL journey to the next level!
+        </div>
+        <Button onClick={getStartedHandler}>Get Started</Button>
+      </section>
+    </div>
   )
 }
 
