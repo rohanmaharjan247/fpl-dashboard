@@ -128,7 +128,7 @@ const DashboardNav = () => {
           </ul>
         </nav>
       </div>
-      <div className='absolute left-[20rem] inset-y-0 right-0'>
+      <div className='absolute left-[20rem] inset-y-0 right-0 p-4'>
         <Outlet />
       </div>
     </div>

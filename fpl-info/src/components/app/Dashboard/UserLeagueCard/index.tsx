@@ -9,7 +9,7 @@ const UserLeagueCard = ({ league }: UserLeagueCardProps) => {
   return (
     <div key={league.id} className='flex justify-between py-2 border-b'>
       <Link
-        to={`/league/${league.id}`}
+        to={`/leagues/${league.id}`}
         className='font-semibold hover:underline'
       >
         {league.name}

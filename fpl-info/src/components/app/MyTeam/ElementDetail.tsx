@@ -31,7 +31,9 @@ const ElementDetail = ({ element }: ElementDetailProps) => {
         </h1>
         <h2 className='text-sm bg-gray-300  text-center'>
           {element.element_detail &&
-            element.element_detail.event_points * element.multiplier}
+            (element.in_team === "regular"
+              ? element.element_detail.event_points * element.multiplier
+              : element.element_detail.event_points)}
         </h2>
       </div>
     </div>

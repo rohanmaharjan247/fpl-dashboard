@@ -52,7 +52,7 @@ const LeagueTable = ({ leagues }: LeagueTableProps) => {
               <TableCell>{league.entry_rank.toLocaleString()}</TableCell>
               <TableCell>
                 <NavLink
-                  to={`/leagues/${league.id}`}
+                  to={`/leagues/league/${league.id}`}
                   className='text-primary font-bold hover:underline'
                 >
                   {league.name}

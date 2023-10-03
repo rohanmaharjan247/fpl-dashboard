@@ -50,7 +50,7 @@ const H2HTable = ({ h2h }: H2HTableProps) => {
             <TableCell>{head.entry_rank.toLocaleString()}</TableCell>
             <TableCell>
               <NavLink
-                to={`/leagues/${head.id}`}
+                to={`/leagues/h2h/${head.id}`}
                 className='text-primary font-bold hover:underline'
               >
                 {head.name}

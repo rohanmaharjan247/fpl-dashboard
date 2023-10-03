@@ -1,7 +1,9 @@
 import {
   getBootstrapStatic,
   getEntry,
+  getEntryClassicLeague,
   getEntryEvent,
+  getEntryH2hLeague,
   getEntryHistory,
   getEventStatus,
   getFixtures,
@@ -16,6 +18,7 @@ import {
   Team,
 } from "fpl-api"
 import { useFPLContext } from "../context/fpl-context"
+import _ from "lodash"
 
 export interface Fixtures extends Fixture {
   home_team?: Team
@@ -178,7 +181,39 @@ const useEntryEvent = (entryId?: number, eventId?: number | null) => {
       }
     })
 
-  return { entryEvent, entryPickElement, isLoading, error }
+  console.log("entry pick", entryPickElement)
+
+  const groupedRegularTeam = _(entryPickElement)
+    .filter((item) => item.in_team === "regular")
+    .groupBy("in_team")
+    .mapValues((items) => {
+      // console.log("grouped item", items)
+      return _(items)
+        .groupBy((group) => group.position_detail?.singular_name_short)
+        .mapValues((items) => {
+          // console.log("element group", items)
+          return _(items)
+            .flatMap((item) => item)
+            .value()
+        })
+        .value()
+    })
+    .value()
+
+  const groupedSubTeam = _(entryPickElement)
+    .filter((item) => item.in_team === "sub")
+    .groupBy("in_team")
+    .mapValues((items) => items)
+    .value()
+
+  return {
+    entryEvent,
+    entryPickElement,
+    groupedRegularTeam,
+    groupedSubTeam,
+    isLoading,
+    error,
+  }
 }
 
 const useEntryHistory = (entryId?: number) => {
@@ -193,6 +228,32 @@ const useEntryHistory = (entryId?: number) => {
   })
 
   return { entryHistory, isLoading, error }
+}
+
+const useEntryClassicLeagueDetail = (leagueId: number) => {
+  const {
+    data: entryClassicLeagueDetail,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["entryClassicLeagueDetailKey", leagueId],
+    queryFn: () => getEntryClassicLeague(leagueId),
+  })
+
+  return { entryClassicLeagueDetail, isLoading, error }
+}
+
+const useEntryH2HLeagueDetail = (h2hLeagueId: number) => {
+  const {
+    data: entryH2HLeagueDetail,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["entryH2HLeagueDetailKey", h2hLeagueId],
+    queryFn: () => getEntryH2hLeague(h2hLeagueId),
+  })
+
+  return { entryH2HLeagueDetail, isLoading, error }
 }
 
 export {
@@ -211,4 +272,6 @@ export {
   useEntryEvent,
   useEntryHistory,
   useElementsType,
+  useEntryClassicLeagueDetail,
+  useEntryH2HLeagueDetail,
 }

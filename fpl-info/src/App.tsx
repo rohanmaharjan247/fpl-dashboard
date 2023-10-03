@@ -36,7 +36,7 @@ function App() {
           make informed decisions, and dominate the competition. Turn data into
           your secret weapon and take your FPL journey to the next level!
         </div>
-        <Button onClick={getStartedHandler}>Get Started</Button>
+        <Button onClick={getStartedHandler}>Join Now!</Button>
       </section>
     </div>
   )

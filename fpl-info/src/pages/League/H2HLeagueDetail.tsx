@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useEntryClassicLeagueDetail, usePageTitle } from "@/lib/app-utils/hook"
+import { useEntryH2HLeagueDetail } from "@/lib/app-utils/hook"
 import {
   faCircle,
   faCircleArrowDown,
@@ -15,14 +15,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useParams } from "react-router-dom"
 
-const LeagueDetail = () => {
-  const { leagueId } = useParams()
+const H2HLeagueDetail = () => {
+  const { h2hLeagueId } = useParams()
 
-  const { entryClassicLeagueDetail, isLoading } = useEntryClassicLeagueDetail(
-    Number(leagueId)
+  const { entryH2HLeagueDetail, isLoading } = useEntryH2HLeagueDetail(
+    Number(h2hLeagueId)
   )
-
-  usePageTitle(`${entryClassicLeagueDetail?.league.name ?? "League"}`)
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -31,7 +29,7 @@ const LeagueDetail = () => {
   return (
     <div className='p-4'>
       <div className='text-2xl font-bold'>
-        {entryClassicLeagueDetail?.league.name}
+        {entryH2HLeagueDetail?.league.name}
       </div>
       <div className='card my-4'>
         <Table>
@@ -39,12 +37,15 @@ const LeagueDetail = () => {
             <TableRow>
               <TableHead>Rank</TableHead>
               <TableHead>Team & Manager</TableHead>
-              <TableHead className='text-right'>Gameweek Pts.</TableHead>
+              <TableHead className='text-right'>Games Played</TableHead>
+              <TableHead className='text-right'>Win</TableHead>
+              <TableHead className='text-right'>Loss</TableHead>
+              <TableHead className='text-right'>Draw</TableHead>
               <TableHead className='text-right'>Total Pts.</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {entryClassicLeagueDetail?.standings.results.map((standing) => (
+            {entryH2HLeagueDetail?.standings.results.map((standing) => (
               <TableRow key={standing.id}>
                 <TableCell>
                   <span>
@@ -72,7 +73,16 @@ const LeagueDetail = () => {
                   <div>{standing.player_name}</div>
                 </TableCell>
                 <TableCell className='text-right'>
-                  {standing.event_total}
+                  {standing.matches_played}
+                </TableCell>
+                <TableCell className='text-right'>
+                  {standing.matches_won}
+                </TableCell>
+                <TableCell className='text-right'>
+                  {standing.matches_lost}
+                </TableCell>
+                <TableCell className='text-right'>
+                  {standing.matches_drawn}
                 </TableCell>
                 <TableCell className='text-right font-semibold'>
                   {standing.total}
@@ -86,4 +96,4 @@ const LeagueDetail = () => {
   )
 }
 
-export default LeagueDetail
+export default H2HLeagueDetail
