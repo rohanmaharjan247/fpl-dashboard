@@ -4,7 +4,6 @@ import {
   faCog,
   faTableColumns,
   faShirt,
-  faRightLeft,
   faList,
   faFutbolBall,
   faPowerOff,
@@ -87,17 +86,6 @@ const DashboardNav = () => {
               </li>
             </NavLink>
             <NavLink
-              to='/'
-              className={({ isActive }) =>
-                isActive ? styles.dasboard_nav__active : ""
-              }
-            >
-              <li>
-                <FontAwesomeIcon icon={faRightLeft} className='mr-4' />
-                Transfers
-              </li>
-            </NavLink>
-            <NavLink
               to='/leagues'
               className={({ isActive }) =>
                 isActive ? styles.dasboard_nav__active : ""
@@ -109,7 +97,7 @@ const DashboardNav = () => {
               </li>
             </NavLink>
             <NavLink
-              to='/'
+              to='/fixtures'
               className={({ isActive }) =>
                 isActive ? styles.dasboard_nav__active : ""
               }

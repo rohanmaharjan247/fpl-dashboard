@@ -3,9 +3,11 @@ import CurrentFixtureCard from "./CurrentFixtureCard/CurrentFixtureCard"
 import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 const CurrentFixtures = () => {
   const { fixtures } = useCurrentFixtures()
+  const navigate = useNavigate()
   return (
     <>
       <div className='mb-4'>
@@ -19,7 +21,7 @@ const CurrentFixtures = () => {
           <CurrentFixtureCard fixture={fixture} key={fixture.code} />
         ))}
         <div className='text-right'>
-          <Button variant={"link"}>
+          <Button variant={"link"} onClick={() => navigate("/fixtures")}>
             See More
             <FontAwesomeIcon icon={faArrowRightLong} className='ml-1' />
           </Button>

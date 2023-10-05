@@ -9,6 +9,7 @@ import {
   EventStatus,
   Fixture,
   H2HLeague,
+  H2HLeagueMatches,
 } from "fpl-api"
 
 const getBootstrapStatic = async () => {
@@ -124,6 +125,21 @@ const getEntryH2hLeague = async (h2hLeagueId: number) => {
 
   return entryH2hLeague
 }
+const getEntryH2hMatches = async (h2hLeagueId: number, entryId?: number) => {
+  const {
+    data: entryH2hLeague,
+    status,
+    statusText,
+  } = await fplInstance.get<H2HLeagueMatches>(
+    `/api/league/h2h/matches/${h2hLeagueId}`,
+    { params: { entryId } }
+  )
+  if (status !== HttpStatusCode.Ok) {
+    throw new Error(statusText)
+  }
+
+  return entryH2hLeague
+}
 
 export {
   getBootstrapStatic,
@@ -134,4 +150,5 @@ export {
   getEntryHistory,
   getEntryClassicLeague,
   getEntryH2hLeague,
+  getEntryH2hMatches,
 }

@@ -1,5 +1,6 @@
 import App from "@/App"
 import { DashboardLayout, MainLayout } from "@/layouts"
+import Fixtures from "@/pages/Fixtures/Fixtures"
 import { LeagueDetail, Leagues, H2HLeagueDetail } from "@/pages/League"
 import { Callback } from "@/pages/auth"
 import { Dashboard, MyTeam } from "@/pages/dashboard"
@@ -46,6 +47,10 @@ export const routes: RouteObject[] = [
             element: <H2HLeagueDetail />,
           },
         ],
+      },
+      {
+        path: "/fixtures",
+        element: <Fixtures />,
       },
     ],
   },

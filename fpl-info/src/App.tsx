@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 function App() {
   usePageTitle("Home")
   const auth = useAuth0()
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function App() {
     }
   }, [auth.isAuthenticated, auth.isLoading, navigate])
 
-  const getStartedHandler = () => {
+  const getStartedHandler = async () => {
     auth.loginWithRedirect()
   }
 

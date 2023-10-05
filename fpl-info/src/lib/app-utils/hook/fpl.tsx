@@ -4,6 +4,7 @@ import {
   getEntryClassicLeague,
   getEntryEvent,
   getEntryH2hLeague,
+  getEntryH2hMatches,
   getEntryHistory,
   getEventStatus,
   getFixtures,
@@ -256,6 +257,20 @@ const useEntryH2HLeagueDetail = (h2hLeagueId: number) => {
   return { entryH2HLeagueDetail, isLoading, error }
 }
 
+const useEntryH2HMatches = (h2hLeagueId: number, entryId?: number) => {
+  const {
+    data: entryH2HMatches,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["entryH2HMatchesKey", h2hLeagueId, entryId],
+    queryFn: () => getEntryH2hMatches(h2hLeagueId, entryId),
+    enabled: !!entryId,
+  })
+
+  return { entryH2HMatches, isLoading, error }
+}
+
 export {
   useCurrentGameweek,
   useFinishedGameweek,
@@ -274,4 +289,5 @@ export {
   useElementsType,
   useEntryClassicLeagueDetail,
   useEntryH2HLeagueDetail,
+  useEntryH2HMatches,
 }

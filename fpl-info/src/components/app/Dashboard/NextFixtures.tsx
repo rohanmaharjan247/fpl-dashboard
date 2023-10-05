@@ -4,11 +4,11 @@ import { format } from "date-fns"
 import { Button } from "@/components/ui/button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 const NextFixtures = () => {
   const { fixtures } = useNextFixtures()
-
-  console.log("fixtures", fixtures)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -29,7 +29,7 @@ const NextFixtures = () => {
           <NextFixtureCard fixture={fixture} key={fixture.code} />
         ))}
         <div className='text-right'>
-          <Button variant={"link"}>
+          <Button variant={"link"} onClick={() => navigate("/fixtures")}>
             See More
             <FontAwesomeIcon icon={faArrowRightLong} className='ml-1' />
           </Button>
