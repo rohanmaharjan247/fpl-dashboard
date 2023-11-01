@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "start": "nodemon -q ./fpl-info-server/dist/server.js",
     "watch:client": "npm run dev --prefix fpl-info",
-    "watch:server": "npx nodemon",
+    "watch:server": "npx tsx ./fpl-info-server/server.ts",
     "dev": "concurrently \"npm run watch:server\" \"npm run watch:client\""
   },
   "keywords": [],
